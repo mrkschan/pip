@@ -95,7 +95,8 @@ class InstallRequirement(object):
             req = link.egg_fragment
 
             # Handle relative file URLs
-            if link.scheme == 'file' and re.search(r'\.\./', url):
+            # regex '\./' handles both ../ and ./ relative paths
+            if link.scheme == 'file' and re.search(r'\./', url):
                 url = path_to_url(os.path.normpath(os.path.abspath(link.path)))
 
         else:
